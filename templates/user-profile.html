@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil de usuario</title>
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="../assets/svg/logos/descarga.jfif">
+
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
+
+    <!-- Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <!-- CSS Front Template -->
+    <link rel="stylesheet" href="../assets/css/theme.min.css">
+</head>
+
+<body>
+    <header id="header" class="navbar navbar-expand-lg navbar-fixed navbar-height navbar-flush navbar-container navbar-bordered bg-soft-info">
+        <a href="https://www.aviatur.com/" aria-label="Front">
+            <img class="navbar-brand-logo" src="../assets/svg/logos/unnamed.png" alt="Logo">
+        </a>
+
+
+    </header>
+    <main id="content" role="main" class="main pointer-event">
+        <section>[USER-INFO]</section>
+        <section>[USER-TABLA]</section>
+    </main>
+
+
+
+    <footer class="modal-footer justify-content-lg-end bg-soft-info">
+
+        <div class="d-flex justify-content-end">
+
+            <li class="list-inline-item">
+                <!-- Keyboard Shortcuts Toggle -->
+
+                <a class="js-hs-unfold-invoker" data-hs-unfold-options='{
+                          "target": "#keyboardShortcutsSidebar",
+                          "type": "css-animation",
+                          "animationIn": "fadeInRight",
+                          "animationOut": "fadeOutRight",
+                          "hasOverlay": true,
+                          "smartPositionOff": true
+                         }' href="https://www.aviatur.com/"><img class="navbar-brand-logo" src="../assets/svg/logos/unnamed.png" alt="Logo">
+                </a>
+
+                <!-- End Keyboard Shortcuts Toggle -->
+            </li>
+        </div>
+
+    </footer>
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+
+
+    <!-- JS database info-->
+    <script src="../js/userTable.js"></script>
+    <script src="../js/user_info.js"></script>
+    <script>
+        $(document).ready(function() {
+            var table = $('#example').DataTable();
+
+            $('#example tbody').on('click', 'tr', function() {
+                if ($(this).hasClass('selected')) {
+                    $(this).removeClass('selected');
+                } else {
+                    table.$('tr.selected').removeClass('selected');
+                    $(this).addClass('selected');
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

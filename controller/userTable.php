@@ -1,10 +1,11 @@
 <?php
 include "../model/conecta.php";
 include "../services/TableReader.php";
+// include "../views/index.php";
 
 $avia_contactos = new ServicioTablaInfo($conexion);
-$nit = "860056785";
-// $nit = $_GET["nit"];
+// $nit = "20042808";
+$nit = $_GET["nit"];
 $contact_info = $avia_contactos->GetCustomer($nit);
 // Printing the table
 $vec = sizeof($contact_info);
@@ -32,4 +33,3 @@ echo json_encode(
         "data" => $contact_info
     )
 );
-// header("Location: ../views/usuario.php");

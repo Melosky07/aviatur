@@ -61,4 +61,18 @@ class ServicioTablaInfo
         }
         return $resultados;
     }
+
+    public function GetResumen($id)
+    {
+        $query = "SELECT saldo_total, no_facturas FROM resumen WHERE nit = $id";
+        // $query = "SELECT * FROM datoscontacto";
+        $consulta = mysqli_query($this->conexion, $query);
+        if ($consulta) {
+            $resultados = mysqli_fetch_all($consulta);
+            // $resultados = array("response" => true, "body" => $resultados);
+        } else {
+            $resultados = array("response" => false, "body" => [""]);
+        }
+        return $resultados;
+    }
 }

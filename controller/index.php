@@ -10,15 +10,17 @@
     <link rel="shortcut icon" href="../assets/svg/logos/descarga.jfif">
 
     <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.1.0/css/buttons.dataTables.min.css">
 
     <!-- Font -->
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
     <!-- CSS Front Template -->
     <link rel="stylesheet" href="../assets/css/theme.min.css">
+    <link rel="stylesheet" href="../assets/css/border.css">
 </head>
 
 <body>
-    <header id="header" class="navbar navbar-expand-lg navbar-fixed navbar-height navbar-flush navbar-container navbar-bordered bg-soft-info">
+    <header id="header" class="navbar navbar-expand-lg navbar-fixed navbar-height navbar-flush navbar-container navbar-bordered">
         <a href="https://www.aviatur.com/" aria-label="Front">
             <img class="navbar-brand-logo" src="../assets/svg/logos/unnamed.png" alt="Logo">
         </a>
@@ -35,19 +37,27 @@
             // include "../templates/user-profile.html";
 
             $nit2 = $_GET["nit"];
-            $nit = base64_decode($nit2);
+            if ($nit2) {
+                $nit = base64_decode($nit2);
+            } else {
+                $nit = "123456789";
+            }
 
             $cartera_con = new ServicioTablaInfo($conexion);
             $contact_info = $cartera_con->GetCustomer($nit);
+
             // Printing the table
 
             //informacion de Contacto
 
             $avia_contacto = new ServicioTablaInfo($conexion);
             $con = $avia_contacto->GetContactInfo($nit);
+
+            $resumen = new ServicioTablaInfo($conexion);
+            $res = $resumen->GetResumen($nit);
+
             $vec_con = sizeof($con);
             $vec = sizeof($contact_info);
-
 
             // FORMATO TABLA DE FACTURAS
 
@@ -80,13 +90,12 @@
             }
             // FIN FORMATO TABLA FACTURAS
 
-            //FORMATO TABLA DE RESUMEN 
+            //FORMATO TABLA DE CONTACTO
             for ($i = 0; $i < $vec_con; $i++) {
                 $vec2_con = sizeof($con[$i]);
                 for ($j = 0; $j < $vec2_con; $j++) {
                     if ($j < 1) {
-                        $enco = base64_encode($con[$i][$j]);
-                        $con[$i][$j] = "<tr><th>" . $enco . "</th>";
+                        $con[$i][$j] = "<tr><th>" . $con[$i][$j] . "</th>";
                     } elseif ($j == 5) {
                         $con[$i][$j] = "<th>" . $con[$i][$j] . "</th></tr>";
                     } else {
@@ -94,18 +103,26 @@
                     }
                 }
             }
-            // FIN FORMATO TABLA RESUMEN
+            // FIN FORMATO TABLA CONTACTO
 
             ?>
             <section>
-                <!-- TABLA RESUMEN INICIO -->
+                <!-- TABLA CONTACTO INICIO -->
                 <table id="contacto" class="table is-striped" style="width:100%">
                     <thead>
                         <tr>
-                            <th>Nit</th>
-                            <th>Razon social</th>
-                            <th>Contacto</th>
-                            <th>Correo</th>
+                            <th><span>
+                                    <FONT COLOR=#0052EA font-weight:bold>Nit
+                                </span></th>
+                            <th><span>
+                                    <FONT COLOR=#0052EA font-weight:bold>Razon Social
+                                </span></th>
+                            <th><span>
+                                    <FONT COLOR=#0052EA font-weight:bold>Contacto
+                                </span></th>
+                            <th><span>
+                                    <FONT COLOR=#0052EA font-weight:bold>Correo
+                                </span></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -123,14 +140,33 @@
                     <tfoot>
                         <tr>
                             <th>Nit</th>
-                            <th>Razon social</th>
+                            <th>Razon Social</th>
                             <th>Contacto</th>
                             <th>Correo</th>
                         </tr>
                     </tfoot>
                 </table>
             </section>
-                        <!-- FIN TABLA RESUMEN INICIO -->
+            <!-- FIN TABLA CONTACTO INICIO -->
+
+            <!-- RESUMEN INICIO -->
+            <section>
+                <center>
+                    <h3 class="header">
+                        <FONT COLOR=#0052EA font-weight:bold>SALDO TOTAL: </FONT>$
+                        <?php
+                        print_r($res[0][0]);
+                        ?>
+
+                        <FONT COLOR=#0052EA font-weight:bold>TOTAL FACTURAS: </FONT>
+
+                        <?php
+                        print_r($res[0][1]);
+                        ?>
+                    </h3>
+                </center>
+            </section>
+            <!-- RESUMEN FIN -->
 
 
             <!-- TABLA DE FACTURAS INICIO -->
@@ -138,12 +174,24 @@
                 <table id="facturas" class="table is-striped" style="width:100%">
                     <thead>
                         <tr>
-                            <th>Factura</th>
-                            <th>Fecha</th>
-                            <th>Moneda</th>
-                            <th>Saldo</th>
-                            <th>Motivo</th>
-                            <th>Dias</th>
+                            <th><span>
+                                    <FONT COLOR=#0052EA font-weight:bold>Factura
+                                </span></th>
+                            <th><span>
+                                    <FONT COLOR=#0052EA font-weight:bold>Fecha
+                                </span></th>
+                            <th><span>
+                                    <FONT COLOR=#0052EA font-weight:bold>Moneda
+                                </span></th>
+                            <th><span>
+                                    <FONT COLOR=#0052EA font-weight:bold>Saldo
+                                </span></th>
+                            <th><span>
+                                    <FONT COLOR=#0052EA font-weight:bold>Motivo
+                                </span></th>
+                            <th><span>
+                                    <FONT COLOR=#0052EA font-weight:bold>Dias
+                                </span></th>
                             <!-- <th>Documento</th> -->
                         </tr>
                     </thead>
@@ -175,7 +223,7 @@
     </main>
 
 
-    <footer class="modal-footer justify-content-lg-end bg-soft-info">
+    <footer class="modal-footer justify-content-lg-end">
 
         <div class="d-flex justify-content-end">
 
@@ -199,6 +247,12 @@
     </footer>
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.1.0/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.1.0/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.1.0/js/buttons.print.min.js"></script>
 
     <script>
         $(document).ready(function() {
@@ -209,16 +263,13 @@
                 "filter": false
             });
         });
-        $(document).ready(function() {
-            var table = $('#facturas').DataTable();
 
-            $('#facturas tbody').on('click', 'tr', function() {
-                if ($(this).hasClass('selected')) {
-                    $(this).removeClass('selected');
-                } else {
-                    table.$('tr.selected').removeClass('selected');
-                    $(this).addClass('selected');
-                }
+        $(document).ready(function() {
+            $('#facturas').DataTable({
+                dom: 'Bfrtip',
+                buttons: [
+                    'copy', 'csv', 'excel', 'pdf', 'print'
+                ]
             });
         });
     </script>

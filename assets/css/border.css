@@ -1,0 +1,8 @@
+.header {
+    text-align: center;
+    border-style: solid;
+    border-radius: 50px;
+    border-width: 3px;
+    border-color: #005EB8;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}

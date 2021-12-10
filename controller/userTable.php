@@ -1,11 +1,13 @@
 <?php
 include "../model/conecta.php";
 include "../services/TableReader.php";
-// include "../views/index.php";
+include "usuario.php";
+// include_once("../views/usuario.php");
 
 $avia_contactos = new ServicioTablaInfo($conexion);
-// $nit = "20042808";
+// $nit = "860056785";
 $nit = $_GET["nit"];
+
 $contact_info = $avia_contactos->GetCustomer($nit);
 // Printing the table
 $vec = sizeof($contact_info);

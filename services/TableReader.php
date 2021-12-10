@@ -64,7 +64,7 @@ class ServicioTablaInfo
 
     public function GetResumen($id)
     {
-        $query = "SELECT saldo_total, no_facturas FROM resumen WHERE nit = $id";
+        $query = "SELECT moneda, saldo_total, no_facturas FROM resumen WHERE nit = $id";
         // $query = "SELECT * FROM datoscontacto";
         $consulta = mysqli_query($this->conexion, $query);
         if ($consulta) {

@@ -153,15 +153,19 @@
             <section>
                 <center>
                     <h3 class="header">
-                        <FONT COLOR=#0052EA font-weight:bold>SALDO TOTAL: </FONT>$
+                        <FONT COLOR=#005EB8 font-weight:bold>SALDO TOTAL: </FONT>
                         <?php
                         print_r($res[0][0]);
                         ?>
-
-                        <FONT COLOR=#0052EA font-weight:bold>TOTAL FACTURAS: </FONT>
-
+                        $
                         <?php
                         print_r($res[0][1]);
+                        ?>
+
+                        <FONT COLOR=#005EB8 font-weight:bold>TOTAL FACTURAS: </FONT>
+
+                        <?php
+                        print_r($res[0][2]);
                         ?>
                     </h3>
                 </center>
